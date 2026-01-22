@@ -39,13 +39,7 @@ class Activation_Softmax:
         exp_values = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
         self.output = exp_values / np.sum(exp_values, axis=1, keepdims=True)
 
-    def backward(self, dvalues):
-        # Standard Softmax backward (not used when combined with Cross-Entropy)
-        self.dinputs = np.empty_like(dvalues)
-        for i, (output, dval) in enumerate(zip(self.output, dvalues)):
-            output = output.reshape(-1, 1)
-            jacobian = np.diagflat(output) - np.dot(output, output.T)
-            self.dinputs[i] = np.dot(jacobian, dval)
+
 
 
 # --- 3. LOSS FUNCTIONS ---
